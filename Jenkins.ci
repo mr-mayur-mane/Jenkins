@@ -1,0 +1,27 @@
+pipeline {
+    agent any
+    parameters {
+        choice(name: 'BUILD_TYPE', choices: ['docker', 'node'], description: 'Choose build type')
+    }
+
+    stages {
+        stage('Checkout') {
+            steps { checkout scm }
+        }
+
+        stage('Build') {
+            steps {
+                script {
+                    if (params.BUILD_TYPE == 'docker') {
+                        sh 'docker build -t myapp:latest .'
+                        sh 'docker push myregistry/myapp:latest'
+                    } else if (params.BUILD_TYPE == 'node') {
+                        sh 'npm install'
+                        sh 'npm test'
+                        sh './deploy.sh'
+                    }
+                }
+            }
+        }
+    }
+}
