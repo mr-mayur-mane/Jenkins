@@ -21,6 +21,13 @@ pipeline {
                         sh './deploy.sh'
                     }
                 }
+
+        stage('Docker push'){
+            steps{
+                dockerLogin()
+            }
+        }
+
             }
         }
     }
