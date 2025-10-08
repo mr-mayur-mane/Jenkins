@@ -1,0 +1,29 @@
+pipeline{
+    agent any
+    stages{
+        stage('Git pull'){
+            steps{
+                echo "Cloning the code"
+                git clone
+            }
+        stage('Build'){
+            steps{
+                sh "docker build -t node-app ."
+
+            }
+        }
+        stage('Image push to docker hub'){
+            steps{
+                dockerLogin()
+            }
+        
+        }
+        stage('Image pull'){
+            steps{
+                sh 'docker compose down'
+                sh 'docker compose up'
+            }
+        }
+        }
+    }
+}
