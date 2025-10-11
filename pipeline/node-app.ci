@@ -6,10 +6,16 @@ pipeline{
                 echo "Cloning the code"
                 git clone
             }
+        }
         stage('Build'){
             steps{
                 sh "docker build -t node-app ."
 
+            }
+        }
+        stage ('docker image scan'){
+            steps {
+                echo "image scan"
             }
         }
         stage('Image push to docker hub'){
