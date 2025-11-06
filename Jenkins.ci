@@ -5,6 +5,7 @@ pipeline {
         choice(name: 'BUILD_TYPE', choices: ['docker', 'node'], description: 'Choose build type')
     }
 
+
     stages {
         stage('Checkout') {
             steps { 
