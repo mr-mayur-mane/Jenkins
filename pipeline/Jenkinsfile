@@ -1,0 +1,51 @@
+@Library ('Shared') -
+pipeline{
+    agent any //{label 'agent_name'}
+    environment{
+        SONAR_HOME = tool 'Sonar'
+    }
+    parameters{
+        string(name: 'parameter_name', default: '', description: "Parameter Description")
+    }
+    stages{
+        stage('Validate the credentials'){
+            steps{
+                script{
+                    if (param.parameter_name == ''){
+                        error('parameter_name cannot the empty')
+                    }
+                }
+            }
+        }
+        stage('Clean workspace'){
+            steps{
+                script{
+                    clean_ws()
+                }
+            }
+        }
+        stage('Git: code checkout'){
+            steps{
+                script{
+                    code_checkout()
+                }
+            }
+        }
+        stage('Trivy scan'){
+            steps{
+                script{
+                    trivy_scan()
+                }
+            }
+        }
+        stage('DockerHub Image Push'){
+            steps{
+                script{
+                    dockerHub_login()
+                }
+            }
+        }
+
+
+
+}
