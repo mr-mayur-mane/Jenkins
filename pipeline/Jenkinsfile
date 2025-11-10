@@ -38,6 +38,20 @@ pipeline{
                 }
             }
         }
+        stage('Sonar Scan'){
+            steps{
+                script{
+                    sonar_scan()
+                }
+            }
+        }
+        stage('OWASP Scan'){
+            steps{
+                script{
+                    oswap_scan()
+                }
+            }
+        }
         stage('DockerHub Image Push'){
             steps{
                 script{
