@@ -1,4 +1,4 @@
-@Library ('Shared') -
+@Library ('Shared') _
 pipeline{
     agent any //{label 'agent_name'}
     environment{
@@ -59,7 +59,12 @@ pipeline{
                 }
             }
         }
-
-
+        stage('Send the report via email'){
+            steps{
+                script{
+                    email_report()
+                }
+            }
+        }
 
 }
