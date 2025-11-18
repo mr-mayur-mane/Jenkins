@@ -9,7 +9,7 @@ pipeline {
     stages {
         stage('Validate the choice'){
             when {
-                expression{ return params.choices != 'docker'}
+                expression{ return params.BUILD_TYPE != 'docker'}
             }
             steps{
                 echo "Build type is node"
