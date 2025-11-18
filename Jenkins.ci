@@ -7,6 +7,14 @@ pipeline {
 
 
     stages {
+        stage('Validate the choice'){
+            when {
+                expression{ return params.choices != 'docker'}
+            }
+            steps{
+                echo "Build type is node"
+            }
+        }
         stage('Checkout') {
             steps { 
                 echo "Git clone"
