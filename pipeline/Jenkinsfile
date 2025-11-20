@@ -5,7 +5,9 @@ pipeline{
         SONAR_HOME = tool 'Sonar'
     }
     parameters{
-        string(name: 'parameter_name', default: '', description: "Parameter Description")
+        string(name: 'parameter_name', defaultValue: '', description: "Parameter Description")
+        string(name: 'GIT_URL', defaultValue: '', description: 'Git url')
+        string(name: 'BRANCH', defaultValue: '', description: 'Branch')
     }
     stages{
         stage('Validate the credentials'){
@@ -25,7 +27,9 @@ pipeline{
             }
         }
         stage('Git: code checkout'){
-            steps{
+            when {
+                expression { params.GIT_URL != ''}
+            }steps{
                 script{
                     code_checkout()
                 }
