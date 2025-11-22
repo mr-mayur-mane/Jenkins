@@ -45,7 +45,7 @@ pipeline{
         stage('Sonar Scan'){
             steps{
                 script{
-                    sonar_scan()
+                    sonarScan(projectKey: "my-app",sources: ".")
                 }
             }
         }
