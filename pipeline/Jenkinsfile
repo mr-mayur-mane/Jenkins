@@ -38,7 +38,11 @@ pipeline{
         stage('Trivy scan'){
             steps{
                 script{
-                    trivy_scan()
+                    trivy_scan(target: ".",
+                        type: "fs",
+                        severity: "MEDIUM,HIGH,CRITICAL",
+                        failOnVuln: false
+                    )
                 }
             }
         }
