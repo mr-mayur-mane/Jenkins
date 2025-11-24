@@ -1,6 +1,9 @@
 @Library('Shared')
 pipeline {
     agent any
+    environment {
+        SONAR_HOME = tool 'Sonar'
+    }
     parameters {
         choice(name: 'BUILD_TYPE', choices: ['docker', 'node'], description: 'Choose build type')
     }
