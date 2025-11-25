@@ -3,6 +3,7 @@ pipeline{
     agent any //{label 'agent_name'}
     environment{
         SONAR_HOME = tool 'Sonar'
+        BRANCH = "${params.BRANCH_REF ?: ''}".replace('refs/heads/', '')
     }
     parameters{
         string(name: 'parameter_name', defaultValue: '', description: "Parameter Description")
@@ -10,6 +11,18 @@ pipeline{
         string(name: 'BRANCH', defaultValue: '', description: 'Branch')
     }
     stages{
+        stage('Build only if branch == master'){
+            when {
+                        expression{ env.BRANCH != 'master'}
+                    }
+            steps{
+                script{
+                    currentBuild.result = 'SUCCESS'
+                    error(Branch is not master)
+                    
+                }
+            }
+        }
         stage('Validate the credentials'){
             steps{
                 script{
