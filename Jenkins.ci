@@ -6,6 +6,7 @@ pipeline {
     }
     parameters {
         choice(name: 'BUILD_TYPE', choices: ['docker', 'node'], description: 'Choose build type')
+        string(name: 'branch', defaultValue: '', description: '')
     }
 
     stages {
@@ -17,6 +18,17 @@ pipeline {
                 echo "Build type is node"
             }
         }
+        stage('Validate the brach'){
+            when{
+                expression{params.branch != 'master'}
+            }
+            steps{
+                script{
+                    error(Branch is not master: received params.branch)
+                }
+            }
+        }
+
         stage('Checkout') {
             steps { 
                 echo "Git clone"
