@@ -24,6 +24,8 @@ pipeline {
             }
             steps{
                 script{
+                    echo "The brach is ${params.branch}"
+                    currentBuild.result = 'FAILURE'
                     error(Branch is not master: received params.branch)
                 }
             }
