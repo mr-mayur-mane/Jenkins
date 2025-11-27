@@ -1,15 +1,18 @@
 @Library ('shared_lib') _
+properties([
+    parameters([
+        string(name: 'parameter_name', defaultValue: '', description: "Parameter Description")
+        string(name: 'GIT_URL', defaultValue: '', description: 'Git url')
+        string(name: 'BRANCH', defaultValue: '', description: 'Branch')
+    ])
+])
 pipeline{
     agent any //{label 'agent_name'}
     environment{
         SONAR_HOME = tool 'Sonar'
         BRANCH = "${params.BRANCH_REF ?: ''}".replace('refs/heads/', '')
     }
-    parameters{
-        string(name: 'parameter_name', defaultValue: '', description: "Parameter Description")
-        string(name: 'GIT_URL', defaultValue: '', description: 'Git url')
-        string(name: 'BRANCH', defaultValue: '', description: 'Branch')
-    }
+
     stages{
         stage('Build only if branch == master'){
             when {
