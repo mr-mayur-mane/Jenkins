@@ -68,10 +68,14 @@ pipeline {
     }
     post{
         success{
-            echo "Build and push success"
+            script{
+                echo "Build and push success"
+            }
         }
         failure{
-            echo "Build/Push Failes"
+            script {
+                echo "Build/Push Failed"
+            }
         }
     }
 }
