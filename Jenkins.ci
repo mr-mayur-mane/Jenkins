@@ -70,5 +70,8 @@ pipeline {
         success{
             echo "Build and push success"
         }
+        failure{
+            echo "Build/Push Failes"
+        }
     }
 }
