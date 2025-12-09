@@ -29,7 +29,7 @@ pipeline{
         stage('Validate the credentials'){
             steps{
                 script{
-                    if (param.GIT_URL == ''){
+                    if (params.GIT_URL == ''){
                         error('parameter_name cannot the empty')
                     }
                 }
@@ -38,14 +38,13 @@ pipeline{
         stage('Clean workspace'){
             steps{
                 script{
-                    clean_ws()
+                    cleanWs()
                 }
             }
         }
         stage('Git: code checkout'){
-            when {
-                expression { params.GIT_URL != ''}
-            }steps{
+
+            steps{
                 script{
                     code_checkout()
                 }
