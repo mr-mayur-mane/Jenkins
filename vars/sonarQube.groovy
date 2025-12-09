@@ -4,7 +4,7 @@ def call(Map config = [:]){
     }
     def scannerHome = tool 'SonarScanner'
     withSonarQubeEnv("sonarqube"){
-        withCredentails([string(credentialsId: 'sonar-token', variable: 'ONAR_TOKEN')]){
+        withCredentails([string(credentialsId: 'sonar-token', variable: 'SONAR_TOKEN')]){
             sh """
                 ${scannerHome}/bin/sonar-scanner \
                   -Dsonar.projectKey=${config.projectKey} \
