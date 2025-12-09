@@ -21,7 +21,7 @@ pipeline{
             steps{
                 script{
                     currentBuild.result = 'SUCCESS'
-                    error(Branch is not master : env.BRANCH)
+                    error('Branch is not master : env.BRANCH')
                     
                 }
             }
