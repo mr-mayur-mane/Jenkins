@@ -29,7 +29,7 @@ pipeline{
         stage('Validate the credentials'){
             steps{
                 script{
-                    if (param.parameter_name == ''){
+                    if (param.GIT_URL == ''){
                         error('parameter_name cannot the empty')
                     }
                 }
