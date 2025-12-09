@@ -1,9 +1,9 @@
 @Library ('shared_lib') _
 properties([
     parameters([
-        string(name: 'parameter_name', defaultValue: '', description: "Parameter Description")
         string(name: 'GIT_URL', defaultValue: '', description: 'Git url')
         string(name: 'BRANCH', defaultValue: '', description: 'Branch')
+        string(name: 'BRANCH_REF', defaultValue: '', description: '')
     ])
 ])
 pipeline{
