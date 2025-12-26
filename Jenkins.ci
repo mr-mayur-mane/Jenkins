@@ -4,4 +4,12 @@ pipeline{
         string(name: GIT_URL, defaultValue: '', description: 'Git Url'),
         string(name: BRANCH, defaultValue:'master', description: 'Git branch default is master')
     }
+    stages{
+        stage('Validate the parameters'){
+            when{
+                exoression{params.GIT_URL == ''}
+                error('Failed: Git Url cannot be empty')
+            }
+        }
+    }
 }
