@@ -10,6 +10,11 @@ pipeline{
                 exoression{params.GIT_URL == ''}
                 error('Failed: Git Url cannot be empty')
             }
+        stage('Git clone'){
+            steps{
+                Git url:${params.GIT_URL} branch: ${params.BRANCH}
+            }
+        }
         }
     }
 }
