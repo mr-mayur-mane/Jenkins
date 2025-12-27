@@ -6,9 +6,12 @@ pipeline{
     }
     stages{
         stage('Validate the parameters'){
-            when{
-                exoression{params.GIT_URL == ''}
-                error('Failed: Git Url cannot be empty')
+            steps{
+                script{
+                    if(!params.GIT_URL?.trim()){
+                        error('Failed: Git Url cannot be empty')
+                    }
+                }
             }
         stage('Git clone'){
             steps{
