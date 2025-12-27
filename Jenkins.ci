@@ -13,6 +13,13 @@ pipeline{
                     }
                 }
             }
+        stage('Clean the workspace'){
+            steps{
+                script{
+                    cleanWs()
+                }
+            }
+        }
         stage('Git clone'){
             steps{
                 git url: params.GIT_URL branch: params.BRANCH
