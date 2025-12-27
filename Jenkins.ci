@@ -12,7 +12,7 @@ pipeline{
             }
         stage('Git clone'){
             steps{
-                Git url:${params.GIT_URL} branch: ${params.BRANCH}
+                git url: params.GIT_URL branch: params.BRANCH
             }
         }
         }
