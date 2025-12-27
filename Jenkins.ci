@@ -1,4 +1,4 @@
-pipeline{
+pipeline {
     agent any
     parameters{
         string(name: GIT_URL, defaultValue: '', description: 'Git Url'),
@@ -13,6 +13,7 @@ pipeline{
                     }
                 }
             }
+        }
         stage('Clean the workspace'){
             steps{
                 script{
@@ -32,7 +33,7 @@ pipeline{
                     npm i
                 }
             }
-        }
+        
         }
     }
 }
