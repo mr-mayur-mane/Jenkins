@@ -18,6 +18,11 @@ pipeline{
                 git url: params.GIT_URL branch: params.BRANCH
             }
         }
+        stage('Build Step: 1 '){
+            script{
+                npm i
+            }
+        }
         }
     }
 }
