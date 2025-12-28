@@ -29,9 +29,7 @@ pipeline {
         stage('Build Step: 1'){
             steps{
 
-                script{
-                    npm i
-                }
+                sh "docker build -t node-app ."
             }
         
         }
