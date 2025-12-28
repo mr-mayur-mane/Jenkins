@@ -43,7 +43,8 @@ pipeline {
             steps{
                 withCredentials([usernamePassword(credentialsId: "dockerHub", passwordVariable: "dockerHubPass", usernameVariable: "dockerHubUser")])
 
-                sh "docker run -d -p 8000:8000 ${env.dockerHubUser}:latest"
+                sh "docker compose down"
+                sh "docker compose up -d"
             }
         }
     }
