@@ -26,6 +26,14 @@ pipeline {
                 git url: params.GIT_URL branch: params.BRANCH
             }
         }
+        stage('Sonar Scan'){
+            steps{
+                script{
+                    sonarScan()
+                }
+            }
+        }
+        
         stage('Build Step: 1'){
             steps{
 
