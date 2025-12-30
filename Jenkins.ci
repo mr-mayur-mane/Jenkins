@@ -33,7 +33,13 @@ pipeline {
                 }
             }
         }
-        
+        stage('Oswap Scan'){
+            steps{
+                script{
+                    oswapScan()
+                }
+            }
+        }
         stage('Build Step: 1'){
             steps{
 
