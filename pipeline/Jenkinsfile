@@ -99,7 +99,9 @@ pipeline{
         }
 
         failure{
-            echo " Build failed"
+            script{
+                echo " Build failed"
+            }
         }
     }
 
