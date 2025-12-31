@@ -93,7 +93,9 @@ pipeline{
     }
     post{
         success{
-            echo "Build success"
+            script{
+                echo "Build success"
+            }
         }
 
         failure{
