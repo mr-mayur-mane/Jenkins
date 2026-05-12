@@ -4,6 +4,19 @@ pipeline{
         SONAR_HOME = tool 'sonar'
     }
     parameters{
-        string(git url: 'https://github.com/user09', defaultValue: '' branch: master, defaultValue: '')
+        string(name: gitUrl, defaultValue: '', description: 'Git url')
+    }
+    stages{
+        stage('Validate the git url'){
+            when{
+                expression{params.gitUrl == ''}
+            }
+            steps{
+                script{
+                    currentBuild.result == "SUCCESS"
+                    error('Git url is empty: params.gitUrl')
+                }
+            }
+        }
     }
 }
