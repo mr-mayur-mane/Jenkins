@@ -1,0 +1,9 @@
+pipeline{
+    agent any \\ {label 'agent_name'}
+    environment{
+        SONAR_HOME = tool 'sonar'
+    }
+    parameters{
+        string(git url: 'https://github.com/user09', defaultValue: '' branch: master, defaultValue: '')
+    }
+}
