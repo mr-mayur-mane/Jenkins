@@ -15,7 +15,7 @@ pipeline{
             steps{
                 script{
                     currentBuild.result == "SUCCESS"
-                    error('Git url is empty: params.gitUrl')
+                    error('Failed: Git url is empty: params.gitUrl')
                 }
             }
         }
