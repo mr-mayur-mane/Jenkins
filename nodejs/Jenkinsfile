@@ -26,5 +26,18 @@ pipeline{
                 }
             }
         }
+
+        stage('Clean Workspace'){
+            steps{
+                cleanWs()
+            }
+        }
+        stage('Git clone'){
+            steps{
+                git url: ${params.gitUrl} branch: ${params.branch}
+            }
+        }
+
+
     }
 }
