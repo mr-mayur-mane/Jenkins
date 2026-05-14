@@ -9,13 +9,11 @@ pipeline{
     }
     stages{
         stage('Validate the git url'){
-            when{
-                expression{params.gitUrl == ''}
-            }
             steps{
                 script{
-                    currentBuild.result == "SUCCESS"
-                    error('Failed: Git url is empty: params.gitUrl')
+                    if (param.gitUrl == ''){
+                        error(Failed: Git Url is empty)
+                    }
                 }
             }
         }
@@ -23,7 +21,7 @@ pipeline{
         stage('Validate the git branch'){
             steps{
                 script{
-                    if(params.branch != 'master' || params.branch != 'main' )
+                    if(params.branch != 'master' && params.branch != 'main' )
                     error('Faild: Non-master/non-main branch')
                 }
             }
