@@ -1,58 +1,74 @@
-pipeline{
-    agent any \\ {label 'agent_name'}
-    environment{
+pipeline {
+    agent {
+        label 'agent_name'
+    }
+
+    environment {
         SONAR_HOME = tool 'sonar'
     }
-    parameters{
-        string(name: gitUrl, defaultValue: '', description: 'Git url')
-        string(name: branch, defaultValue: '', description: 'Git branch')
+
+    parameters {
+        string(name: 'gitUrl', defaultValue: '', description: 'Git url')
+        string(name: 'branch', defaultValue: '', description: 'Git branch')
     }
-    stages{
-        stage('Validate the git url'){
-            steps{
-                script{
-                    if (param.gitUrl == ''){
-                        error(Failed: Git Url is empty)
+
+    stages {
+
+        stage('Validate the git url') {
+            steps {
+                script {
+                    if (params.gitUrl == '') {
+                        error('Failed: Git Url is empty')
                     }
                 }
             }
         }
 
-        stage('Validate the git branch'){
-            steps{
-                script{
-                    if(params.branch != 'master' && params.branch != 'main' )
-                    error('Faild: Non-master/non-main branch')
+        stage('Validate the git branch') {
+            steps {
+                script {
+                    if (params.branch != 'master' && params.branch != 'main') {
+                        error('Failed: Non-master/non-main branch')
+                    }
                 }
             }
         }
 
-        stage('Clean Workspace'){
-            steps{
+        stage('Clean Workspace') {
+            steps {
                 cleanWs()
             }
         }
-        stage('Git clone'){
-            steps{
-                git url: ${params.gitUrl} branch: ${params.branch}
-            }
-        }
-        stage("Install the required packages"){
-            steps{
-                script{
-                    sh "pnpm i"
-                }
+
+        stage('Git clone') {
+            steps {
+                git branch: "${params.branch}",
+                    url: "${params.gitUrl}"
             }
         }
 
-        stage("Build the app"){
+        stage('Install the required packages') {
+            steps {
+                sh 'pnpm i'
+            }
+        }
+        stage('SonarQube Scan'){
             steps{
-                script{
-                    sh """ 
-                        cd public-service
-                        pnpm run public-service:build
-                    """
+                withSonarQubeEnv('sonar'){
+                    sh '''
+                        ${SONAR_HOME}/bin/sonar-scanner \
+                        -Dsonar.projeectKey=public-service \
+                        -Dsonar.sources=.
+                    '''
                 }
+            }
+        }
+        stage('Build the app') {
+            steps {
+                sh '''
+                    cd public-service
+                    pnpm run public-service:build
+                '''
             }
         }
     }
