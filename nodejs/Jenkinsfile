@@ -37,7 +37,14 @@ pipeline{
                 git url: ${params.gitUrl} branch: ${params.branch}
             }
         }
-
+        stage("Install the required packages"){
+            steps{
+                script{
+                    sh "pnpm i"
+                }
+            }
+        }
+        
 
     }
 }
